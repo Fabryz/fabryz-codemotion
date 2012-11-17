@@ -35,9 +35,22 @@ app.get('/',  function(req, res) {
 
 // POST from Arduino
 app.post('/sensor',  function(req, res) {
-	var sensorData = req.body.sensor;
 
-	res.end('Data received: '+ sensorData);
+    var sensorData = {
+    	"type": req.body.type,
+    	"level": req.body.level,
+    	"val": req.body.val,
+    	"timestamp": req.body.timestamp,
+    	"lat": req.body.lat,
+    	"lng": req.body.lng,
+    	"extra": {
+        	"description": req.body.extra.description,
+        	"depth": req.body.extra.depth
+    	}
+	};
+
+	res.json({ sensor: sensorData });
+	res.end();
 });
 
 app.listen(process.env.PORT || 8001);
