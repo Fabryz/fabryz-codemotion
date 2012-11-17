@@ -43,8 +43,10 @@ app.post('/sensor',  function(req, res) {
     	"level": req.body.level,
     	"val": req.body.val,
     	"timestamp": req.body.timestamp,
-    	"lat": req.body.lat,
-    	"lng": req.body.lng,
+    	"localization": {
+    		"lon": req.body.localization.lon,
+    		"lat": req.body.localization.lat
+    	},
     	"extra": {
         	"description": ( (req.body.extra && req.body.extra.description) ? req.body.extra.description : null),
         	"depth":  ( (req.body.extra && req.body.extra.depth) ? req.body.extra.depth : null)
