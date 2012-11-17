@@ -150,6 +150,9 @@ $(document).ready(function() {
 
 	socket.on('sensorData', function(sensorData) {
 		log('Sensor data arrived: '+ JSON.stringify(sensorData));
+
+		// Update map, do stuff
+
 	});
 
 });
