@@ -66,7 +66,7 @@ $(document).ready(function() {
 	* Main
 	*/
 
-	var socket = new io.connect(window.location.href);
+	var socket = new io.connect(window.location.origin);
 	
 	var status,
 		clientId,
