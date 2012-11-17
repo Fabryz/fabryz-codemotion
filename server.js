@@ -44,8 +44,8 @@ app.post('/sensor',  function(req, res) {
     	"lat": req.body.lat,
     	"lng": req.body.lng,
     	"extra": {
-        	"description": req.body.extra.description,
-        	"depth": req.body.extra.depth
+        	"description": ( (req.body.extra && req.body.extra.description) ? req.body.extra.description : null),
+        	"depth":  ( (req.body.extra && req.body.extra.depth) ? req.body.extra.depth : null)
     	}
 	};
 
