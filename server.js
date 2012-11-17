@@ -28,8 +28,16 @@ app.configure('production', function(){
 
 // Routes
 
+// This should be useless
 app.get('/',  function(req, res) {
 	res.sendfile('index.html');
+});
+
+// POST from Arduino
+app.post('/sensor',  function(req, res) {
+	var sensorData = req.body.sensor;
+
+	res.end('Data received: '+ sensorData);
 });
 
 app.listen(process.env.PORT || 8001);
