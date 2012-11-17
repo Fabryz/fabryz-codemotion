@@ -36,6 +36,8 @@ app.get('/',  function(req, res) {
 // POST from Arduino
 app.post('/sensor',  function(req, res) {
 
+	console.log('POST /sensor '+ JSON.stringify(req.body));
+
     var sensorData = {
     	"type": req.body.type,
     	"level": req.body.level,
