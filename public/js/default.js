@@ -146,4 +146,10 @@ $(document).ready(function() {
 		log('Initial player list received: '+ length +' players.');
 	});
 
+	/* Custom Events */
+
+	socket.on('sensorData', function(sensorData) {
+		log('Sensor data arrived: '+ sensorData);
+	});
+
 });

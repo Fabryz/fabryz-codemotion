@@ -49,6 +49,8 @@ app.post('/sensor',  function(req, res) {
     	}
 	};
 
+	io.sockets.emit('sensorData', sensorData);
+
 	res.json({ sensor: sensorData });
 	res.end();
 });
