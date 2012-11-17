@@ -149,7 +149,7 @@ $(document).ready(function() {
 	/* Custom Events */
 
 	socket.on('sensorData', function(sensorData) {
-		log('Sensor data arrived: '+ sensorData);
+		log('Sensor data arrived: '+ JSON.stringify(sensorData));
 	});
 
 });
