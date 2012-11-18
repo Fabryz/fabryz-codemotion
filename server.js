@@ -58,6 +58,36 @@ app.post('/sensor',  function(req, res) {
 	//io.sockets.emit('sensorData', sensorData);
 	io.sockets.emit('sensorData', req.body);
 
+	var mongoose = require('mongoose');
+	var db = mongoose.createConnection('localhost', 'test');
+	console.log("connected");
+	var schema = mongoose.Schema(
+	  {
+	    type: 'string',
+	    level: 'string',
+	    intensity: 'number',
+	    loc: { lon: 'number', lat:'number' },
+	    timestamp: 'date',
+	    extra: { description:'string', depth:'string'}
+
+	  });
+	console.log(schema);
+	var SensorData = db.model('SensorData', schema);
+	console.log(SensorData);
+	var data = new SensorData(req.body);
+	console.log(data);
+	data.save(function (err) {
+	  if (err) {
+	    console.log(err);
+	    return handleError(err);
+	  } 
+	  console.log("let's go");
+	  // saved!
+	});
+
+
+
+
 	res.json(req.body );
 	res.end();
 });
