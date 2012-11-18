@@ -8,7 +8,7 @@ var post_port = 8001;
 //var post_port = 80;
 var post_path = '/sensor';
 
-var post_data = '{ "type": "HQ", "level": "MEDIUM", "intensity": 6.1, "timestamp": "2012-11-21 10:10:10", "loc": { "lat": 45.563101016195546, "lon": 12.42467099999999}, "extra": { "description": "Roncade", "depth": "10km"}}';
+var post_data = '{ "type": "HQ", "level": "MEDIUM", "intensity": 6.1, "timestamp": "2012-11-21 10:10:10", "loc": { "lat": 12.42467, "lon": 45.56310 }, "extra": { "description": "Roncade", "depth": "10km"}}';
 var post_options = {
   host: post_domain,
   port: post_port,
