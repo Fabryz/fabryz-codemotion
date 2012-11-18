@@ -2,12 +2,13 @@ var querystring = require('querystring');
 var http = require('http');
 
 //var post_domain = '10.1.91.98';
-var post_domain = '151.1.104.9';
-//var post_port = 8001;
-var post_port = 80;
+//var post_domain = '151.1.104.9';
+var post_domain ='localhost';
+var post_port = 8001;
+//var post_port = 80;
 var post_path = '/sensor';
 
-var post_data = '{ "type": "HQ", "level": "MEDIUM", "val": "6.1", "timestamp": "1353205650", "lat": "45.563101016195546", "lng": "12.42467099999999", "extra": { "description": "Roncade", "depth": "10km"}}';
+var post_data = '{ "type": "HQ", "level": "MEDIUM", "intensity": 6.1, "timestamp": "2012-11-21 10:10:10", "loc": { "lat": 45.563101016195546, "lon": 12.42467099999999}, "extra": { "description": "Roncade", "depth": "10km"}}';
 var post_options = {
   host: post_domain,
   port: post_port,
