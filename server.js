@@ -105,8 +105,9 @@ app.post('/sensor',  function(req, res) {
 	
 	var post_path = '/emergencies';
 	var post_data = JSON.stringify(req.body);
+	// var post_data = req.body;
 
-	// console.log(post_data);
+	console.log("I AM GOING TO POST: "+ post_data);
 
 	var post_options = {
 	  host: post_domain,
@@ -129,7 +130,7 @@ app.post('/sensor',  function(req, res) {
 	});
 
 	// POSTING to Paolon
-	console.log('POSTING TO PAOLON: '+ JSON.stringify(post_data));
+	console.log('POSTING TO PAOLON: '+ post_data);
 	post_req.write(post_data);
 	post_req.end();
 
