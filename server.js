@@ -25,7 +25,9 @@ app.configure('development', function(){
 });
 
 app.configure('production', function(){
-	app.use(express.errorHandler()); 
+	app.use(express.errorHandler());
+	//app.set("post_domain", "10.1.89.47");
+	//app.set("post_port", 80); 
 });
 
 // Routes
@@ -61,7 +63,7 @@ app.post('/sensor',  function(req, res) {
 	io.sockets.emit('sensorData', req.body);
 
 	var mongoose = require('mongoose');
-	var db = mongoose.createConnection('localhost', 'test');
+	var db = mongoose.createConnection('mongodb://codello:codello@ds039437.mongolab.com:39437/rb-test');
 	console.log("connected");
 	var schema = mongoose.Schema(
 	  {
@@ -123,13 +125,6 @@ console.log(post_data);
 	console.log(post_data);
 	post_req.write(post_data);
 	post_req.end();
-
-
-
-
-
-
-
 	res.json(req.body );
 	res.end();
 });
