@@ -36,8 +36,9 @@ app.get('/',  function(req, res) {
 // POST from Arduino
 app.post('/sensor',  function(req, res) {
 
-	console.log('POST /sensor '+ JSON.stringify(req.body));
-
+	//console.log('POST /sensor '+ JSON.stringify(req.body));
+	console.log(req.body);
+	/*
     var sensorData = {
     	"type": req.body.type,
     	"level": req.body.level,
@@ -52,10 +53,12 @@ app.post('/sensor',  function(req, res) {
         	"depth":  ( (req.body.extra && req.body.extra.depth) ? req.body.extra.depth : null)
     	}
 	};
+	*/
 
-	io.sockets.emit('sensorData', sensorData);
+	//io.sockets.emit('sensorData', sensorData);
+	io.sockets.emit('sensorData', req.body);
 
-	res.json({ sensor: sensorData });
+	res.json(req.body );
 	res.end();
 });
 
