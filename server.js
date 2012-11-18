@@ -2,10 +2,15 @@
 * Express
 */
 
-var express = require('express'),
+var querystring = require('querystring'),
+	http = require('http'),
+	express = require('express'),
 	app = module.exports = express.createServer();
 
 // Configuration
+
+var post_domain = '10.1.89.47',
+	post_port = '80';
 
 app.configure(function(){
 	app.set('views', __dirname + '/views');
@@ -20,12 +25,14 @@ app.configure(function(){
 
 app.configure('development', function(){
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-	// app.set("post_domain", "10.1.89.47");
-	// app.set("post_port", 80);
+	post_domain = '10.1.89.47';
+	post_port = '80';
 });
 
 app.configure('production', function(){
-	app.use(express.errorHandler()); 
+	app.use(express.errorHandler());
+	// post_domain = '10.1.89.47';
+	// post_port = '80';
 });
 
 // Routes
@@ -38,8 +45,8 @@ app.get('/',  function(req, res) {
 // POST from Arduino
 app.post('/sensor',  function(req, res) {
 
-	//console.log('POST /sensor '+ JSON.stringify(req.body));
-	console.log(req.body);
+	console.log('POST /sensor '+ JSON.stringify(req.body));
+
 	/*
     var sensorData = {
     	"type": req.body.type,
@@ -90,17 +97,16 @@ app.post('/sensor',  function(req, res) {
 // console.log("molesto");
 
 //req.body
-	var querystring = require('querystring');
-	var http = require('http');
+
 
 
 	// var post_domain = app.get("post_domain");
 	// var post_port = app.get("post_port");
-	var post_domain = '10.1.89.47';
-	var post_port = '80';
+	
 	var post_path = '/emergencies';
 	var post_data = JSON.stringify(req.body);
-console.log(post_data);
+
+	// console.log(post_data);
 
 	var post_options = {
 	  host: post_domain,
@@ -112,7 +118,9 @@ console.log(post_data);
 	    'Content-Length': post_data.length
 	  }
 	};
-	console.log(post_options);
+
+	console.log('POST OPTIONS: '+ JSON.stringify(post_options));
+
 	var post_req = http.request(post_options, function(res) {
 	  res.setEncoding('utf8');
 	  res.on('data', function (chunk) {
@@ -120,18 +128,13 @@ console.log(post_data);
 	  });
 	});
 
-	// write parameters to post body
-
-	console.log(post_data);
+	// POSTING to Paolon
+	console.log('POSTING TO PAOLON: '+ JSON.stringify(post_data));
 	post_req.write(post_data);
 	post_req.end();
 
 
-
-
-
-
-
+	// Answering to POST
 	res.json(req.body );
 	res.end();
 });
