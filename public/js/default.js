@@ -66,7 +66,8 @@ $(document).ready(function() {
 	* Main
 	*/
 
-	var socket = new io.connect(window.location.origin);
+	// var socket = new io.connect(window.location.origin);
+	var socket = new io.connect('http://10.1.89.15:8001');
 	
 	var status,
 		clientId,
