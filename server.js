@@ -19,7 +19,9 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-	app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	app.set("post_domain", "10.1.89.47");
+	app.set("post_port", 80);
 });
 
 app.configure('production', function(){
@@ -84,6 +86,46 @@ app.post('/sensor',  function(req, res) {
 	  console.log("let's go");
 	  // saved!
 	});
+
+console.log("molesto");
+
+//req.body
+	var querystring = require('querystring');
+	var http = require('http');
+	//var post_domain = app.get('post_domain');
+	//var post_port = app.get('post_port');
+	var post_domain = app.get("post_domain");
+	var post_port = app.get("post_port");
+	var post_path = '/emergencies';
+	var post_data = JSON.stringify(req.body);
+console.log(post_data);
+
+	var post_options = {
+	  host: post_domain,
+	  port: post_port,
+	  path: post_path,
+	  method: 'POST',
+	  headers: {
+	    'Content-Type': 'application/json',
+	    'Content-Length': post_data.length
+	  }
+	};
+	console.log(post_options);
+	var post_req = http.request(post_options, function(res) {
+	  res.setEncoding('utf8');
+	  res.on('data', function (chunk) {
+	    console.log('Response: ' + chunk);
+	  });
+	});
+
+	// write parameters to post body
+
+	console.log(post_data);
+	post_req.write(post_data);
+	post_req.end();
+
+
+
 
 
 
