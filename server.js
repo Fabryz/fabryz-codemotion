@@ -20,14 +20,12 @@ app.configure(function(){
 
 app.configure('development', function(){
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-	app.set("post_domain", "10.1.89.47");
-	app.set("post_port", 80);
+	// app.set("post_domain", "10.1.89.47");
+	// app.set("post_port", 80);
 });
 
 app.configure('production', function(){
-	app.use(express.errorHandler());
-	//app.set("post_domain", "10.1.89.47");
-	//app.set("post_port", 80); 
+	app.use(express.errorHandler()); 
 });
 
 // Routes
@@ -62,42 +60,44 @@ app.post('/sensor',  function(req, res) {
 	//io.sockets.emit('sensorData', sensorData);
 	io.sockets.emit('sensorData', req.body);
 
-	var mongoose = require('mongoose');
-	var db = mongoose.createConnection('mongodb://codello:codello@ds039437.mongolab.com:39437/rb-test');
-	console.log("connected");
-	var schema = mongoose.Schema(
-	  {
-	    type: 'string',
-	    level: 'string',
-	    intensity: 'number',
-	    loc: { lon: 'number', lat:'number' },
-	    timestamp: 'date',
-	    extra: { description:'string', depth:'string'}
+// 	var mongoose = require('mongoose');
+// 	var db = mongoose.createConnection('localhost', 'test'); //mongodb://codello:codello@ds039437.mongolab.com:39437/codello
+// 	console.log("connected");
+// 	var schema = mongoose.Schema(
+// 	  {
+// 	    type: 'string',
+// 	    level: 'string',
+// 	    intensity: 'number',
+// 	    loc: { lon: 'number', lat:'number' },
+// 	    timestamp: 'date',
+// 	    extra: { description:'string', depth:'string'}
 
-	  });
-	console.log(schema);
-	var SensorData = db.model('SensorData', schema);
-	console.log(SensorData);
-	var data = new SensorData(req.body);
-	console.log(data);
-	data.save(function (err) {
-	  if (err) {
-	    console.log(err);
-	    return handleError(err);
-	  } 
-	  console.log("let's go");
-	  // saved!
-	});
+// 	  });
+// 	console.log(schema);
+// 	var SensorData = db.model('SensorData', schema);
+// 	console.log(SensorData);
+// 	var data = new SensorData(req.body);
+// 	console.log(data);
+// 	data.save(function (err) {
+// 	  if (err) {
+// 	    console.log(err);
+// 	    return handleError(err);
+// 	  } 
+// 	  console.log("let's go");
+// 	  // saved!
+// 	});
 
-console.log("molesto");
+// console.log("molesto");
 
 //req.body
 	var querystring = require('querystring');
 	var http = require('http');
-	//var post_domain = app.get('post_domain');
-	//var post_port = app.get('post_port');
-	var post_domain = app.get("post_domain");
-	var post_port = app.get("post_port");
+
+
+	// var post_domain = app.get("post_domain");
+	// var post_port = app.get("post_port");
+	var post_domain = '10.1.89.47';
+	var post_port = '80';
 	var post_path = '/emergencies';
 	var post_data = JSON.stringify(req.body);
 console.log(post_data);
@@ -125,6 +125,13 @@ console.log(post_data);
 	console.log(post_data);
 	post_req.write(post_data);
 	post_req.end();
+
+
+
+
+
+
+
 	res.json(req.body );
 	res.end();
 });
